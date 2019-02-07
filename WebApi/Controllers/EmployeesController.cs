@@ -10,9 +10,9 @@ namespace WebApi.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        private readonly EmployeeRepository employeeRepo;
+        private readonly IEmployeeRepository employeeRepo;
 
-        public EmployeesController(EmployeeRepository employeeRepo)
+        public EmployeesController(IEmployeeRepository employeeRepo)
         {
             this.employeeRepo = employeeRepo;
         }

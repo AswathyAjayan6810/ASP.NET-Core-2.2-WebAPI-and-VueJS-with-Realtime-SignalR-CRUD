@@ -1,18 +1,35 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    asdfasdf
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+const signalR = require("@aspnet/signalr");
 
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      name: "",
+      message: "",
+      connection: "",
+      messages: []
+    };
+  },
+  created() {
+    this.connection = new signalR.HubConnectionBuilder()
+      .withUrl("https://localhost:44392/hub/main")
+      .configureLogging(signalR.LogLevel.Information)
+      .build();
+
+    this.connection.start().catch(error => {
+      console.log(error);
+    });
+  },
+  mounted() {
+    this.connection.on("ReceiveChanges", () => {
+      alert("New changes")
+    });
   }
-}
+};
 </script>

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Data;
+using WebApi.Hubs;
 using WebApi.Models;
 
 namespace WebApi.Repositories
@@ -10,10 +11,12 @@ namespace WebApi.Repositories
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly AppDbContext context;
+        private readonly IMainHub mainHub;
 
-        public EmployeeRepository(AppDbContext context)
+        public EmployeeRepository(AppDbContext context, IMainHub mainHub)
         {
             this.context = context;
+            this.mainHub = mainHub;
         }
 
         public IQueryable<Employee> Employees()
@@ -32,6 +35,8 @@ namespace WebApi.Repositories
             {
                 context.Employees.Add(employee);
                 await context.SaveChangesAsync();
+
+                await mainHub.NotifyAllClients();
                 return true;
             }
             catch (Exception e)
