@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "e:\\VS2017\\GithubRepos\\ASP.NET-Core-2.2-WebAPI-and-VueJS-with-Realtime-SignalR-CRUD\\WebApi\\WebApi.csproj",
+  "TargetFramework": "netcoreapp2.2",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "MVC-2.1",
+    "LanguageVersion": "2.1",
+    "Extensions": [
+      {
+        "ExtensionName": "MVC-2.1"
+      }
+    ]
+  }
+}
