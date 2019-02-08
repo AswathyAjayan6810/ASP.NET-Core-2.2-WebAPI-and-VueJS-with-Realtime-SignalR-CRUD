@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using WebApi.Models;
+using WebApi.Repositories;
 
 namespace WebApi.Hubs
 {

@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using WebApi.Data;
 using WebApi.Hubs;
 using WebApi.Repositories;
-using WebApi.Services;
 
 namespace WebApi
 {
@@ -35,7 +34,6 @@ namespace WebApi
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             // Services
-            services.AddScoped<INotifyAppClientService, NotifyAppClientService>();
             services.AddScoped<IMainHub, MainHub>();
 
             services.AddDbContext<AppDbContext>();
