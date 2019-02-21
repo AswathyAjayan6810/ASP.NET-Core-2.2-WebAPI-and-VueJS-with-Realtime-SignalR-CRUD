@@ -1,7 +1,11 @@
 # ASP.NET Core 2.2 WebAPI and VueJS with Realtime SignalR CRUD
 
-## Our main hub 
+## Setup ASP.NET Core App
+
+1. Install `Microsoft.AspNetCore.SignalR` using Nuget Package manager
+2. Create a class hub
 ```
+...
 private readonly IHubContext<MainHub> hubContext;
 
 public MainHub(IHubContext<MainHub> hubContext)
@@ -12,6 +16,31 @@ public MainHub(IHubContext<MainHub> hubContext)
 public async Task NotifyAllClients()
 {
   await hubContext.Clients.All.SendAsync("ReceiveChanges");
+}
+...
+```
+3. Modify `Startup.cs`
+```
+// This method gets called by the runtime. Use this method to add services to the container.
+public void ConfigureServices(IServiceCollection services)
+{
+  ...
+  services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
+  {
+    builder.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:8080").AllowCredentials();
+  }));
+
+  services.AddSignalR();
+  ...
+}
+
+// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    ...
+    app.UseCors("CorsPolicy");
+    app.UseSignalR(routes => { routes.MapHub<MainHub>("/hub/main"); });
+    ...
 }
 ```
 
@@ -39,4 +68,4 @@ created() {
   }
 ```
 
-Clone this project: `https://github.com/deanilvincent/ASP.NET-Core-2.2-WebAPI-and-VueJS-with-Realtime-SignalR-CRUD.git`
+You can also clone this project: `https://github.com/deanilvincent/ASP.NET-Core-2.2-WebAPI-and-VueJS-with-Realtime-SignalR-CRUD.git`
